@@ -45,21 +45,22 @@ def main():
 
 
 def load_data(data_dir):
-    """
-    Load image data from directory `data_dir`.
-
-    Assume `data_dir` has one directory named after each category, numbered
-    0 through NUM_CATEGORIES - 1. Inside each category directory will be some
-    number of image files.
-
-    Return tuple `(images, labels)`. `images` should be a list of all
-    of the images in the data directory, where each image is formatted as a
-    numpy ndarray with dimensions IMG_WIDTH x IMG_HEIGHT x 3. `labels` should
-    be a list of integer labels, representing the categories for each of the
-    corresponding `images`.
-    """
-    raise NotImplementedError
-
+    labels = []
+    images = []
+    # open the sub directory
+    for subdir in os.listdir(data_dir):
+        folder_path = os.path.join(data_dir, subdir)
+        #iterate over each image in the sub directory and process it before returning
+        for img in os.listdir(folder_path):
+            image_path = os.path.join(folder_path, img)
+            # open as NumPy array
+            image_array = cv2.imread(image_path)
+            # resize to standardized size
+            resized_img = cv2.resize(image_array, (IMG_WIDTH, IMG_HEIGHT))
+            # append to array then return thr arrays as a tuple
+            labels.append(int(subdir))
+            images.append(resized_img)
+    return (images, labels)
 
 def get_model():
     """
