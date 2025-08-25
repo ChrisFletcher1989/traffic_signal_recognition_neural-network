@@ -63,6 +63,11 @@ def load_data(data_dir):
     return (images, labels)
 
 def get_model():
+        """
+    Returns a compiled convolutional neural network model. Assume that the
+    `input_shape` of the first layer is `(IMG_WIDTH, IMG_HEIGHT, 3)`.
+    The output layer should have `NUM_CATEGORIES` units, one for each category.
+    """
     model = tf.keras.models.Sequential([
         # First convolutional layer
         tf.keras.layers.Conv2D(32, (3, 3), activation='relu', input_shape=(IMG_WIDTH, IMG_HEIGHT, 3)),
@@ -85,12 +90,8 @@ def get_model():
                   loss='categorical_crossentropy',
                   metrics=['accuracy'])
     return model
-    """
-    Returns a compiled convolutional neural network model. Assume that the
-    `input_shape` of the first layer is `(IMG_WIDTH, IMG_HEIGHT, 3)`.
-    The output layer should have `NUM_CATEGORIES` units, one for each category.
-    """
-    raise NotImplementedError
+
+
 
 
 if __name__ == "__main__":
